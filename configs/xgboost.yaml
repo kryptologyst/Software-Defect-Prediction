@@ -1,0 +1,42 @@
+# XGBoost specific configuration
+
+# Data configuration
+data:
+  n_samples: 1000
+  defect_ratio: 0.3
+  test_size: 0.2
+  random_state: 42
+
+# Feature engineering
+features:
+  scaler_type: "standard"
+  feature_selection: true
+  k_best: 25
+  polynomial_degree: 2
+
+# Model configuration
+model:
+  name: "xgboost"
+  random_state: 42
+  
+  # XGBoost parameters
+  xgboost:
+    n_estimators: 200
+    max_depth: 8
+    learning_rate: 0.05
+    subsample: 0.8
+    colsample_bytree: 0.8
+    reg_alpha: 0.1
+    reg_lambda: 0.1
+    min_child_weight: 3
+    gamma: 0.1
+
+# Evaluation configuration
+evaluation:
+  cv_folds: 5
+  early_stopping_rounds: 20
+
+# Explainability
+explainability:
+  shap_sample_size: 200
+  max_display_features: 20

@@ -1,0 +1,90 @@
+# Default configuration for software defect prediction
+
+# Data configuration
+data:
+  n_samples: 1000
+  defect_ratio: 0.3
+  test_size: 0.2
+  random_state: 42
+  noise_level: 0.1
+
+# Feature engineering
+features:
+  scaler_type: "standard"  # "standard" or "robust"
+  feature_selection: true
+  k_best: 20
+  polynomial_degree: 2
+  create_interactions: true
+  create_bins: true
+
+# Model configuration
+model:
+  name: "ensemble"  # "random_forest", "xgboost", "lightgbm", "neural_network", "ensemble"
+  random_state: 42
+  
+  # Random Forest parameters
+  random_forest:
+    n_estimators: 100
+    max_depth: null
+    class_weight: "balanced"
+  
+  # XGBoost parameters
+  xgboost:
+    n_estimators: 100
+    max_depth: 6
+    learning_rate: 0.1
+  
+  # LightGBM parameters
+  lightgbm:
+    n_estimators: 100
+    max_depth: 6
+    learning_rate: 0.1
+  
+  # Neural Network parameters
+  neural_network:
+    hidden_layer_sizes: [100, 50]
+    learning_rate: 0.001
+    max_iter: 1000
+
+# Evaluation configuration
+evaluation:
+  cv_folds: 5
+  metrics:
+    - "accuracy"
+    - "precision"
+    - "recall"
+    - "f1"
+    - "auc_roc"
+    - "auc_pr"
+    - "precision_at_10"
+    - "precision_at_20"
+    - "recall_at_80_precision"
+
+# Explainability configuration
+explainability:
+  shap_sample_size: 100
+  max_display_features: 15
+  save_plots: true
+  plot_format: "png"
+
+# Visualization configuration
+visualization:
+  figure_size: [10, 8]
+  dpi: 300
+  style: "seaborn-v0_8"
+  color_palette: "viridis"
+
+# Logging configuration
+logging:
+  level: "INFO"
+  format: "{time:YYYY-MM-DD HH:mm:ss} | {level} | {message}"
+  file: "logs/defect_prediction.log"
+
+# Output configuration
+output:
+  save_models: true
+  save_predictions: true
+  save_explanations: true
+  output_dir: "results"
+  model_dir: "models"
+  plots_dir: "assets/plots"

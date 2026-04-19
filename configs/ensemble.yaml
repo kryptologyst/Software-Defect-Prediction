@@ -1,0 +1,63 @@
+# Ensemble model configuration
+
+# Data configuration
+data:
+  n_samples: 1500
+  defect_ratio: 0.3
+  test_size: 0.2
+  random_state: 42
+
+# Feature engineering
+features:
+  scaler_type: "robust"
+  feature_selection: true
+  k_best: 30
+  polynomial_degree: 3
+  create_interactions: true
+  create_bins: true
+
+# Model configuration
+model:
+  name: "ensemble"
+  random_state: 42
+  voting: "soft"  # "soft" or "hard"
+  
+  # Base models for ensemble
+  base_models:
+    - name: "random_forest"
+      params:
+        n_estimators: 150
+        max_depth: 10
+        class_weight: "balanced"
+    
+    - name: "xgboost"
+      params:
+        n_estimators: 200
+        max_depth: 8
+        learning_rate: 0.05
+    
+    - name: "lightgbm"
+      params:
+        n_estimators: 200
+        max_depth: 8
+        learning_rate: 0.05
+
+# Evaluation configuration
+evaluation:
+  cv_folds: 5
+  metrics:
+    - "accuracy"
+    - "precision"
+    - "recall"
+    - "f1"
+    - "auc_roc"
+    - "auc_pr"
+    - "precision_at_10"
+    - "precision_at_20"
+    - "recall_at_80_precision"
+
+# Explainability
+explainability:
+  shap_sample_size: 300
+  max_display_features: 25
+  save_plots: true
